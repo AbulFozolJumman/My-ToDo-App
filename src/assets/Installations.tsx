@@ -58,3 +58,5 @@
 // Are you using React Server Components? › no
 
 // To use shadcn Button - npx shadcn-ui@latest add button
+
+// npm i @reduxjs/toolkit react-redux
