@@ -8,10 +8,15 @@ export const baseApi = createApi({
   tagTypes: ["todo"],
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => {
+      query: (priority) => {
+        const params = new URLSearchParams();
+        if (priority) {
+          params.append("priority", priority);
+        }
         return {
           url: "/todos",
           method: "GET",
+          params: params,
         };
       },
       providesTags: ["todo"],
@@ -26,7 +31,18 @@ export const baseApi = createApi({
       },
       invalidatesTags: ["todo"],
     }),
+    updateTodos: builder.mutation({
+      query: (options) => {
+        return {
+          url: `/todos/${options.id}`,
+          method: "PUT",
+          body: options.data,
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
   }),
 });
 
-export const { useGetTodosQuery, useAddTodosMutation } = baseApi;
+export const { useGetTodosQuery, useAddTodosMutation, useUpdateTodosMutation } =
+  baseApi;

@@ -25,9 +25,10 @@ const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
-  const [addTodo, { data, isError, isLoading, isSuccess }] =
-    useAddTodosMutation();
-  console.log(data, isError, isLoading, isSuccess);
+  const [addTodo] = useAddTodosMutation();
+  // const [addTodo, { data, isError, isLoading, isSuccess }] =
+  //   useAddTodosMutation();
+  // console.log(data, isError, isLoading, isSuccess);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
