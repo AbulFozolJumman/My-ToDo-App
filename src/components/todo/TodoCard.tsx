@@ -1,5 +1,9 @@
 import { Button } from "../ui/button";
-import { useUpdateTodosMutation } from "@/redux/api/api";
+import {
+  useDeleteTodosMutation,
+  useUpdateTodosMutation,
+} from "@/redux/api/api";
+import EditTodoModal from "./EditTodoModal";
 
 type TTodoCardProps = {
   _id: string;
@@ -16,6 +20,7 @@ const TodoCard = ({
   _id,
   isCompleted,
 }: TTodoCardProps) => {
+  // PUT operation
   const [updateTodos] = useUpdateTodosMutation(undefined);
 
   const toggleState = () => {
@@ -29,6 +34,18 @@ const TodoCard = ({
       },
     };
     updateTodos(options);
+  };
+
+  // Delete operation
+  const [deleteTodos] = useDeleteTodosMutation(undefined);
+
+  const deleteTask = (id: string) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (confirmed) {
+      deleteTodos(id);
+    }
   };
 
   return (
@@ -61,10 +78,7 @@ const TodoCard = ({
       </div>
       <p className="flex-[3]">{description}</p>
       <div className="space-x-5">
-        <Button
-          // onClick={() => dispatch(removeTodo(_id))}
-          className="bg-red-500"
-        >
+        <Button onClick={() => deleteTask(_id)} className="bg-red-500">
           <svg
             className="size-5"
             fill="none"
@@ -80,7 +94,7 @@ const TodoCard = ({
             ></path>
           </svg>
         </Button>
-        <Button className="bg-[#5C53FE]">
+        {/* <Button className="bg-[#5C53FE]">
           <svg
             className="size-5"
             fill="none"
@@ -95,7 +109,13 @@ const TodoCard = ({
               d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
             ></path>
           </svg>
-        </Button>
+        </Button> */}
+        <EditTodoModal
+          PId={_id}
+          PTitle={title}
+          PDescription={description}
+          PPriority={priority}
+        />
       </div>
     </div>
   );
