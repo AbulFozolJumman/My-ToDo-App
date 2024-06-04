@@ -33,7 +33,7 @@ export const baseApi = createApi({
     }),
     updateTodos: builder.mutation({
       query: (options) => {
-        console.log(options.data);
+        // console.log(options.data);
         return {
           url: `/todos/${options.id}`,
           method: "PUT",

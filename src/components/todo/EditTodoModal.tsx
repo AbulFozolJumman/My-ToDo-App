@@ -35,10 +35,11 @@ const EditTodoModal = ({
   PDescription,
   PPriority,
 }: TEditTodoModalProps) => {
-  const [task, setTask] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
+  const [task, setTask] = useState(PTitle);
+  const [description, setDescription] = useState(PDescription);
+  const [priority, setPriority] = useState(PPriority);
   const [updateTodos] = useUpdateTodosMutation(undefined);
+  const isCompleted = false;
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -49,10 +50,11 @@ const EditTodoModal = ({
         title: task,
         description,
         priority,
+        isCompleted,
       },
     };
     updateTodos(options);
-    console.log(task, description, priority, PId);
+    // console.log(task, description, priority, isCompleted);
   };
 
   return (
